@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "installCommand": "echo 'Static deploy - skip install'",
+  "buildCommand": "echo 'Static - no build'",
+  "outputDirectory": ".",
+  "framework": null
+}

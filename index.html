@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawback Chess - Échecs avec Défis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="mode-screen" class="setup-screen">
+        <h1>Drawback Chess</h1>
+        <p class="setup-desc">Choisissez le mode de jeu</p>
+        <div class="mode-buttons">
+            <button id="mode-local-btn" class="btn-primary">Jouer en local</button>
+            <button id="mode-online-btn" class="btn-primary">Jouer en ligne</button>
+        </div>
+    </div>
+
+    <div id="online-lobby" class="setup-screen" style="display: none;">
+        <h1>Partie en ligne</h1>
+        <div id="online-create" class="online-section">
+            <h3>Créer une partie</h3>
+            <div class="player-setup">
+                <div class="player-difficulty">
+                    <label>Blanc - Niveau :</label>
+                    <select id="online-white-difficulty">
+                        <option value="facile">🟢 Facile</option>
+                        <option value="moyen">🟡 Moyen</option>
+                        <option value="difficile">🟠 Difficile</option>
+                        <option value="impossible">🔴 Impossible</option>
+                    </select>
+                </div>
+                <div class="player-difficulty">
+                    <label>Noir - Niveau :</label>
+                    <select id="online-black-difficulty">
+                        <option value="facile">🟢 Facile</option>
+                        <option value="moyen">🟡 Moyen</option>
+                        <option value="difficile">🟠 Difficile</option>
+                        <option value="impossible">🔴 Impossible</option>
+                    </select>
+                </div>
+            </div>
+            <button id="create-game-btn" class="btn-primary">Créer une partie</button>
+            <div id="room-code-display" class="room-code" style="display: none;">
+                <p>Code de la partie : <strong id="room-code">------</strong></p>
+                <p class="waiting">En attente d'un adversaire...</p>
+            </div>
+        </div>
+        <hr>
+        <div id="online-join" class="online-section">
+            <h3>Rejoindre une partie</h3>
+            <input type="text" id="join-code-input" placeholder="Entrez le code (6 lettres)" maxlength="6">
+            <button id="join-game-btn" class="btn-primary">Rejoindre</button>
+            <p id="join-error" class="error-msg" style="display: none;"></p>
+        </div>
+        <button id="back-to-mode-btn" class="btn-secondary">Retour</button>
+    </div>
+
+    <div id="setup-screen" class="setup-screen" style="display: none;">
+        <h1>Drawback Chess</h1>
+        <p class="setup-desc">Chaque joueur a un défi caché. Les vainqueurs montent en difficulté. Gagner avec IMPOSSIBLE = victoire du match ! 😈</p>
+        <div class="player-setup">
+            <div class="player-difficulty">
+                <label>Blanc - Niveau :</label>
+                <select id="white-difficulty">
+                    <option value="facile">🟢 Facile</option>
+                    <option value="moyen">🟡 Moyen</option>
+                    <option value="difficile">🟠 Difficile</option>
+                    <option value="impossible">🔴 Impossible</option>
+                </select>
+            </div>
+            <div class="player-difficulty">
+                <label>Noir - Niveau :</label>
+                <select id="black-difficulty">
+                    <option value="facile">🟢 Facile</option>
+                    <option value="moyen">🟡 Moyen</option>
+                    <option value="difficile">🟠 Difficile</option>
+                    <option value="impossible">🔴 Impossible</option>
+                </select>
+            </div>
+        </div>
+        <button id="start-match-btn" class="btn-primary">Lancer la partie</button>
+    </div>
+
+    <div id="game-screen" class="container" style="display: none;">
+        <h1>Drawback Chess</h1>
+        <div class="challenges-panel" id="challenges-panel">
+            <div class="challenge-box white-challenge">
+                <span class="challenge-label">Défi Blanc (pièces en bas)</span>
+                <div id="white-challenge-info"></div>
+            </div>
+            <div class="challenge-box black-challenge">
+                <span class="challenge-label">Défi Noir (pièces en haut)</span>
+                <div id="black-challenge-info"></div>
+            </div>
+        </div>
+        <div class="game-info">
+            <div class="current-player">
+                <span>Joueur actif: </span>
+                <span id="current-player">Blanc</span>
+            </div>
+            <div class="move-count">Coup <span id="move-number">1</span></div>
+            <div id="challenge-alerts" class="challenge-alerts"></div>
+            <div class="game-status" id="game-status"></div>
+        </div>
+        <div id="chessboard"></div>
+        <div class="controls">
+            <button id="reset-btn">Nouvelle Partie</button>
+        </div>
+    </div>
+
+    <div id="promotion-modal" class="promotion-modal" style="display: none;">
+        <div class="promotion-content">
+            <p>Choisissez la pièce de promotion :</p>
+            <div class="promotion-choices">
+                <button class="promo-btn" data-piece="queen">♕ Dame</button>
+                <button class="promo-btn" data-piece="rook">♖ Tour</button>
+                <button class="promo-btn" data-piece="bishop">♗ Fou</button>
+                <button class="promo-btn" data-piece="knight">♘ Cavalier</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="victory-screen" class="victory-screen" style="display: none;">
+        <h1 id="victory-title"></h1>
+        <p id="victory-message"></p>
+        <p id="victory-reason" class="victory-reason"></p>
+        <div class="match-status" id="match-status"></div>
+        <button id="next-game-btn" class="btn-primary">Partie suivante</button>
+    </div>
+
+    <!-- En local avec server.js : /socket.io/socket.io.js ; sur Vercel (statique) : CDN -->
+    <script>window.SOCKET_ORIGIN = '';</script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="challenges.js"></script>
+    <script src="chess.js"></script>
+</body>
+
+</html>
