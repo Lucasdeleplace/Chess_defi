@@ -19,9 +19,15 @@ Frontend uses ES modules (`<script type="module">`):
 - `js/GameController.js` — Main orchestrator
 - `js/main.js` — Entry point
 
+### Linting and testing
+
+- `npm run lint` — ESLint with flat config (eslint.config.js)
+- `npm run lint:fix` — auto-fix lint issues
+- `npm test` — run 68 unit tests with Vitest (Board, PieceRules, MoveValidator, ChallengeEngine)
+- `npm run test:watch` — watch mode
+
 ### Key caveats
 
-- No test framework or linter configured. `npm test` / `npm run lint` are not available.
 - No build step — all frontend code is vanilla JS served as static files.
 - The board flips orientation when it's Black's turn (Black pieces appear at bottom).
 - Online mode requires two browser tabs/windows connecting to the same server via Socket.IO room codes.
