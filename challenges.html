@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawback Chess - Guide des Défis</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            align-items: flex-start;
+            padding: 40px 20px;
+        }
+
+        .doc-container {
+            background: #2d3142;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            width: 100%;
+            border: 1px solid #3d4152;
+            margin: 0 auto;
+        }
+
+        .doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .doc-header h1 {
+            font-size: 2.8em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #e8eaef, #8b9dc3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .doc-header p {
+            color: #9a9ea8;
+            font-size: 1.1em;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .doc-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .doc-nav a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .doc-nav a:hover {
+            transform: translateY(-2px);
+        }
+
+        .nav-facile { background: #1a3a1a; color: #6dca6d; border-color: #2d5a2d; }
+        .nav-facile:hover { background: #2d5a2d; }
+        .nav-moyen { background: #3a3a1a; color: #caca4d; border-color: #5a5a2d; }
+        .nav-moyen:hover { background: #5a5a2d; }
+        .nav-difficile { background: #3a2a1a; color: #ca8a4d; border-color: #5a4a2d; }
+        .nav-difficile:hover { background: #5a4a2d; }
+        .nav-impossible { background: #3a1a1a; color: #ca4d4d; border-color: #5a2d2d; }
+        .nav-impossible:hover { background: #5a2d2d; }
+
+        .difficulty-section {
+            margin-bottom: 50px;
+        }
+
+        .difficulty-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 24px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #3d4152;
+        }
+
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1.1em;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-facile { background: #1a3a1a; color: #6dca6d; border: 2px solid #2d5a2d; }
+        .badge-moyen { background: #3a3a1a; color: #caca4d; border: 2px solid #5a5a2d; }
+        .badge-difficile { background: #3a2a1a; color: #ca8a4d; border: 2px solid #5a4a2d; }
+        .badge-impossible { background: #3a1a1a; color: #ca4d4d; border: 2px solid #5a2d2d; }
+
+        .difficulty-count {
+            color: #7a7f8f;
+            font-size: 0.95em;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .challenge-card {
+            background: #252836;
+            border-radius: 14px;
+            padding: 22px 26px;
+            border: 1px solid #3d4152;
+            transition: all 0.3s;
+            display: grid;
+            grid-template-columns: 50px 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .challenge-card:hover {
+            border-color: #5a6578;
+            transform: translateX(4px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            flex-shrink: 0;
+        }
+
+        .icon-facile { background: #1a3a1a; }
+        .icon-moyen { background: #3a3a1a; }
+        .icon-difficile { background: #3a2a1a; }
+        .icon-impossible { background: #3a1a1a; }
+
+        .card-content h3 {
+            color: #e8eaef;
+            font-size: 1.15em;
+            margin-bottom: 6px;
+        }
+
+        .card-content p {
+            color: #9a9ea8;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .card-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-top: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .tag-mouvement { background: #1a2a3a; color: #6d9aca; }
+        .tag-capture { background: #3a1a2a; color: #ca6d9a; }
+        .tag-position { background: #2a3a1a; color: #9aca6d; }
+        .tag-special { background: #2a1a3a; color: #9a6dca; }
+
+        .doc-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #3d4152;
+        }
+
+        .doc-footer .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 20px 0 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #8b9dc3;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #7a7f8f;
+        }
+
+        @media (max-width: 600px) {
+            .doc-container { padding: 20px; }
+            .doc-header h1 { font-size: 2em; }
+            .challenge-card { grid-template-columns: 40px 1fr; gap: 12px; padding: 16px; }
+            .card-icon { width: 40px; height: 40px; font-size: 1.3em; }
+            .stats-bar { gap: 16px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="doc-container">
+        <div class="doc-header">
+            <h1>&#9819; Guide des Défis</h1>
+            <p>Chaque joueur reçoit un défi secret qui modifie les règles. Le vainqueur monte en difficulté. Gagner avec un défi <strong>IMPOSSIBLE</strong> remporte le match !</p>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Défis uniques</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Niveaux</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">&infin;</div>
+                    <div class="stat-label">Combinaisons</div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="doc-nav">
+            <a href="#facile" class="nav-facile">&#x1F7E2; Facile</a>
+            <a href="#moyen" class="nav-moyen">&#x1F7E1; Moyen</a>
+            <a href="#difficile" class="nav-difficile">&#x1F7E0; Difficile</a>
+            <a href="#impossible" class="nav-impossible">&#x1F534; Impossible</a>
+        </nav>
+
+        <!-- FACILE -->
+        <section class="difficulty-section" id="facile">
+            <div class="difficulty-header">
+                <span class="difficulty-badge badge-facile">&#x1F7E2; FACILE</span>
+                <span class="difficulty-count">8 défis</span>
+            </div>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#9819;</div>
+                    <div class="card-content">
+                        <h3>Dame cachée</h3>
+                        <p>Votre dame et la dame adverse sont remplacées visuellement par un pion. Impossible de les distinguer des vrais pions !</p>
+                        <span class="card-tag tag-special">Visuel</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#9813;</div>
+                    <div class="card-content">
+                        <h3>Drôle de reine !</h3>
+                        <p>Votre dame peut se déplacer normalement, mais elle ne peut <strong>rien capturer</strong>. Elle reste une pièce de positionnement uniquement.</p>
+                        <span class="card-tag tag-capture">Capture</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#9817;</div>
+                    <div class="card-content">
+                        <h3>Seulement 4 pions ?</h3>
+                        <p>Seuls <strong>4 pions</strong> peuvent être activés pendant la partie. Une fois un pion déplacé, il reste actif, mais vous ne pourrez pas en activer un 5ème.</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#9812;</div>
+                    <div class="card-content">
+                        <h3>Roi vaillant</h3>
+                        <p>À partir du <strong>coup 10</strong>, votre roi doit quitter sa rangée de départ et ne peut plus y revenir. Il doit s'aventurer sur le champ de bataille !</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#9815;</div>
+                    <div class="card-content">
+                        <h3>Fous flemmards</h3>
+                        <p>Vos fous ne peuvent pas traverser la ligne médiane. Ils restent confinés dans <strong>votre moitié</strong> du plateau.</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#9814;</div>
+                    <div class="card-content">
+                        <h3>Activation tour</h3>
+                        <p>Vos tours sont <strong>inactives jusqu'au coup 15</strong>. Pas de déplacement de tour ni de roque avant ça !</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#127860;</div>
+                    <div class="card-content">
+                        <h3>Manger, manger, manger</h3>
+                        <p>Si l'un de vos pions <strong>peut capturer</strong>, il est <strong>forcé</strong> de le faire. Les autres pièces ne peuvent pas jouer tant qu'un pion a une capture disponible.</p>
+                        <span class="card-tag tag-capture">Capture</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-facile">&#128188;</div>
+                    <div class="card-content">
+                        <h3>Garder la colonne b à tout prix !</h3>
+                        <p>Vous devez toujours avoir au moins <strong>1 pièce sur la colonne b</strong>. Si la colonne est vide, c'est la défaite immédiate !</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MOYEN -->
+        <section class="difficulty-section" id="moyen">
+            <div class="difficulty-header">
+                <span class="difficulty-badge badge-moyen">&#x1F7E1; MOYEN</span>
+                <span class="difficulty-count">7 défis</span>
+            </div>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#9814;</div>
+                    <div class="card-content">
+                        <h3>Stressé des tours</h3>
+                        <p>Vous devez <strong>capturer une tour adverse avant le 18ème coup</strong>. Si vous n'y parvenez pas, c'est la défaite.</p>
+                        <span class="card-tag tag-capture">Capture</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#128064;</div>
+                    <div class="card-content">
+                        <h3>Les yeux plus gros que le ventre</h3>
+                        <p>Si vous pouvez capturer, vous devez toujours prendre la pièce de <strong>plus grande valeur</strong>. Pas de petites prises quand un gros poisson est disponible !</p>
+                        <span class="card-tag tag-capture">Capture</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#127917;</div>
+                    <div class="card-content">
+                        <h3>Impasse mexicaine</h3>
+                        <p>Si vos deux tours se retrouvent <strong>face à face</strong> (même ligne ou colonne sans pièce entre elles), vous perdez immédiatement.</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#128007;</div>
+                    <div class="card-content">
+                        <h3>Limitation de vitesse</h3>
+                        <p>Aucune pièce ne peut se déplacer à plus de <strong>3 cases de distance</strong>. Tours, fous et dames sont sévèrement limités !</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#128683;</div>
+                    <div class="card-content">
+                        <h3>Case g4 ? Beurk.</h3>
+                        <p>Aucune de vos pièces ne peut <strong>aller sur g4</strong>. De plus, si l'une de vos pièces <strong>attaque</strong> g4, c'est la défaite.</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#127912;</div>
+                    <div class="card-content">
+                        <h3>Diversité</h3>
+                        <p>Vous ne pouvez pas jouer <strong>deux fois de suite le même type de pièce</strong>. Après un pion, jouez un cavalier, un fou, etc.</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-moyen">&#9200;</div>
+                    <div class="card-content">
+                        <h3>Maître du temps… mais pas vraiment</h3>
+                        <p>Vous n'avez <strong>aucune visibilité sur les pendules</strong> ni sur l'incrément de temps. Jouez à l'aveugle temporellement !</p>
+                        <span class="card-tag tag-special">Visuel</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DIFFICILE -->
+        <section class="difficulty-section" id="difficile">
+            <div class="difficulty-header">
+                <span class="difficulty-badge badge-difficile">&#x1F7E0; DIFFICILE</span>
+                <span class="difficulty-count">9 défis</span>
+            </div>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#9876;</div>
+                    <div class="card-content">
+                        <h3>Chef des armées</h3>
+                        <p>Aucune pièce ne peut aller <strong>plus loin que votre pion le plus avancé</strong>. Vos pions dictent la ligne de front !</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#9812;</div>
+                    <div class="card-content">
+                        <h3>Commandant de bord</h3>
+                        <p>Vous ne pouvez <strong>capturer que si votre roi a bougé dans les 3 derniers coups</strong>. Le roi doit mener la charge !</p>
+                        <span class="card-tag tag-capture">Capture</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#128293;</div>
+                    <div class="card-content">
+                        <h3>Adepte des captures</h3>
+                        <p>Si vous capturez une pièce, vous devez <strong>continuer à capturer</strong> aux coups suivants tant que c'est possible. Enclenchez le mode berserk !</p>
+                        <span class="card-tag tag-capture">Capture</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#128081;</div>
+                    <div class="card-content">
+                        <h3>Loyauté</h3>
+                        <p>Votre roi doit toujours avoir au moins <strong>3 pièces/pions alliés adjacents</strong> (y compris lui-même). Un roi isolé = défaite.</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#129349;</div>
+                    <div class="card-content">
+                        <h3>Copycat</h3>
+                        <p>Vous devez jouer sur la <strong>même aile</strong> (côté dame ou côté roi) que le dernier coup de votre adversaire.</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#9681;</div>
+                    <div class="card-content">
+                        <h3>Alternance</h3>
+                        <p>Vous devez <strong>alterner entre cases claires et cases foncées</strong> à chaque coup. Jamais deux cases de même couleur d'affilée !</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#128128;</div>
+                    <div class="card-content">
+                        <h3>Mauvais souvenir</h3>
+                        <p>Aucune de vos pièces ne peut se trouver sur la <strong>colonne c</strong>. Elle est maudite pour vous !</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#127919;</div>
+                    <div class="card-content">
+                        <h3>Détermination</h3>
+                        <p>Avant le <strong>coup 20</strong>, vous devez avoir placé au moins une pièce sur <strong>d8 et e8</strong> (ou d1/e1 pour les Noirs). Montrez votre détermination !</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-difficile">&#9876;</div>
+                    <div class="card-content">
+                        <h3>Obsédé par les échecs</h3>
+                        <p>Si vous <strong>pouvez faire échec</strong>, vous <strong>devez</strong> le faire. Pas de choix : l'échec est prioritaire !</p>
+                        <span class="card-tag tag-special">Spécial</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- IMPOSSIBLE -->
+        <section class="difficulty-section" id="impossible">
+            <div class="difficulty-header">
+                <span class="difficulty-badge badge-impossible">&#x1F534; IMPOSSIBLE</span>
+                <span class="difficulty-count">7 défis</span>
+            </div>
+            <div class="challenge-grid">
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#129349;</div>
+                    <div class="card-content">
+                        <h3>Copycat Master</h3>
+                        <p>Vous devez jouer sur la <strong>même colonne</strong> que le dernier coup adverse, ou déplacer une pièce qui se trouve déjà sur cette colonne.</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#128163;</div>
+                    <div class="card-content">
+                        <h3>Oops…</h3>
+                        <p>Vous ne pouvez mater l'adversaire <strong>qu'entre les coups 30 et 40</strong>. En dehors de cette fenêtre, un mat vous fait perdre. Le match nul aussi = défaite.</p>
+                        <span class="card-tag tag-special">Spécial</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#127919;</div>
+                    <div class="card-content">
+                        <h3>Cible en vue</h3>
+                        <p>Tous les <strong>7 coups</strong>, une case aléatoire apparaît. Vous devez y <strong>placer une pièce</strong> avant la prochaine cible, sinon c'est la défaite.</p>
+                        <span class="card-tag tag-position">Position</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#127755;</div>
+                    <div class="card-content">
+                        <h3>Lave montante</h3>
+                        <p>Tous les <strong>10 coups</strong>, une rangée est engloutie par la lave. Les pièces sur cette rangée sont <strong>bloquées</strong> et aucune pièce ne peut s'y déplacer.</p>
+                        <span class="card-tag tag-special">Spécial</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#128260;</div>
+                    <div class="card-content">
+                        <h3>À mon tour !</h3>
+                        <p>Vous devez jouer vos pièces dans un <strong>ordre strict</strong> : pion, cavalier, fou, tour, dame, roi, puis on recommence. Pas le droit de déroger !</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#10060;</div>
+                    <div class="card-content">
+                        <h3>Refus de participation</h3>
+                        <p>Quand l'adversaire capture une de vos pièces, <strong>ce type de pièce ne peut plus bouger pendant 4 coups</strong>. Perdre un cavalier gèle tous vos cavaliers !</p>
+                        <span class="card-tag tag-special">Spécial</span>
+                    </div>
+                </div>
+                <div class="challenge-card">
+                    <div class="card-icon icon-impossible">&#128164;</div>
+                    <div class="card-content">
+                        <h3>Rapidement épuisé</h3>
+                        <p>Chaque pièce ne peut bouger que <strong>3 fois maximum</strong> pendant toute la partie. Gérez vos mouvements comme une ressource précieuse.</p>
+                        <span class="card-tag tag-mouvement">Mouvement</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="doc-footer">
+            <p style="color: #7a7f8f; margin-bottom: 20px;">Les défis sont attribués aléatoirement. Chaque joueur a un défi différent.</p>
+            <a href="/" class="btn-primary">&#9819; Retour au jeu</a>
+        </footer>
+    </div>
+</body>
+
+</html>
