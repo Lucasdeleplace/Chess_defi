@@ -204,7 +204,7 @@ export const challengeHandlers = {
         filterMoves(moves) {
             return moves.filter(([r, c]) => !(r === 4 && c === 6));
         },
-        checkLoss(color, board, state) {
+        checkLoss(color, board, _state) {
             for (let r = 0; r < BOARD_SIZE; r++) {
                 for (let c = 0; c < BOARD_SIZE; c++) {
                     const p = board.getPiece(r, c);

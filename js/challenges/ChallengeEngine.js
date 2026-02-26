@@ -1,4 +1,4 @@
-import { BOARD_SIZE, PIECES } from '../core/Board.js';
+import { BOARD_SIZE } from '../core/Board.js';
 import { getMoves } from '../core/PieceRules.js';
 import { getValidMoves, getAllValidMoves } from '../core/MoveValidator.js';
 import { challengeHandlers, PIECE_TYPE_ORDER, setGetMovesFn } from './ChallengeRegistry.js';
@@ -212,7 +212,7 @@ export class ChallengeEngine {
         return null;
     }
 
-    checkChallengeLosses(board, matchState, currentPlayer) {
+    checkChallengeLosses(board, matchState, _currentPlayer) {
         for (const color of ['white', 'black']) {
             const challenge = this.getChallengeForColor(color, matchState);
             if (!challenge) continue;

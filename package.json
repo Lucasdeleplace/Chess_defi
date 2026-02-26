@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "description": "Drawback Chess - Échecs avec défis en ligne",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "lint": "eslint js/ server.js",
+    "lint:fix": "eslint js/ server.js --fix",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "express": "^4.18.2",
     "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.2",
+    "vitest": "^4.0.18"
   }
 }

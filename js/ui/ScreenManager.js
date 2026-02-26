@@ -10,7 +10,7 @@ export class ScreenManager {
     }
 
     show(screenName) {
-        for (const [name, el] of Object.entries(this.screens)) {
+        for (const [, el] of Object.entries(this.screens)) {
             if (el) el.style.display = 'none';
         }
         const target = this.screens[screenName];

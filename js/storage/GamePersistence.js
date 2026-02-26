@@ -29,7 +29,7 @@ export function clearGameState() {
 export function hasSavedGame() {
     try {
         return localStorage.getItem(STORAGE_KEY) !== null;
-    } catch (e) {
+    } catch {
         return false;
     }
 }
